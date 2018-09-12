@@ -43,7 +43,7 @@ app.get('/todos/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({todo}); // ({todo: todo})
+    res.send({todo}); // ({todo: todo}) ES6 object destructure
   }).catch((e) => {
     res.status(400).send();
   });
