@@ -7,9 +7,11 @@ var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
 
 var app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
+// POST /todos/
 app.post('/todos', (req, res) => {
   var todo = new Todo({
     text: req.body.text
@@ -18,10 +20,11 @@ app.post('/todos', (req, res) => {
   todo.save().then((doc) => {
     res.send(doc);
   }, (e) => {
-    res.status(400).send(e);
+    res.status(400).send(e); // https://httpstatuses.com/
   });
 });
 
+// GET /todos/
 app.get('/todos', (req, res) => {
   Todo.find().then((todos) => {
     res.send({todos});
@@ -30,7 +33,7 @@ app.get('/todos', (req, res) => {
   })
 });
 
-//GET /todos
+// GET /todos/:id
 app.get('/todos/:id', (req, res) => {
   var id = req.params.id;
 
@@ -43,14 +46,14 @@ app.get('/todos/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({todo}); // ({todo: todo}) ES6 object destructure
+    res.send({todo}); // ({todo: todo}) ES6 object destructuring
   }).catch((e) => {
     res.status(400).send();
   });
 });
 
-app.listen(3000, () => {
-  console.log('Started on port 3000');
+app.listen(port, () => {
+  console.log(`Started on port ${port}`);
 });
 
 module.exports = {app};

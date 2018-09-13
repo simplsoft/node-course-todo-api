@@ -18,3 +18,10 @@ var Todo = mongoose.model('Todo', {
 });
 
 module.exports = {Todo};
+
+/*
+  -- ES6 Object destructuring
+  let user = {name: 'Jon', age: 26};
+  let {name} = user;
+  console.log(name); --> Jon
+*/
